@@ -31,6 +31,7 @@ const show = (req, res) => {
 };
 
 const create = (req, res) => {
+    console.log('creating', req.body);
     db.Event.create(req.body, (err, savedEvent) => {
         if (err) console.log('Error in event#create:', err)
 
