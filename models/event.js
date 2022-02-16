@@ -1,24 +1,29 @@
-//coming from example with this file named "Event.js"
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const EventSchema = new Schema({
-    name: String,
+
+const attendeeSchema = new Schema({
+    attendeeName: String,
+    email: String,
+    status: { type: String, default: 'Unpaid', enum: ['Unpaid', 'Paid'] }
+})
+
+const budgetItemSchema = new Schema({
+    itemName: String,
+    itemPrice: Number,
+})
+
+const eventSchema = new Schema({
+    eventName: String,
     description: String,
-    date_start: Date,
-    date_end: Date,
+    startDate: Date,
+    endDate: Date,
     location: String,
-    total_cost: Number,
-    number_of_participants: Number,
-    pay_date: Date,
-    guests: String,
-    image: {
-        type: String,
-        default: "https://i.imgur.com/VhgsO62.png?1"
-    }
+    budgetItems: [budgetItemSchema],
+    attendeeList: [attendeeSchema],
 });
 
-const Event = mongoose.model('Event', EventSchema);
+const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
