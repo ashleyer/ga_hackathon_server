@@ -1,7 +1,9 @@
-const db = require('../models');
+
+import { Event } from '../models/event.js'
+
 
 const index = (req, res) => {
-    db.Event.find({}, (err, foundEvents) => {
+    Event.find({owner:req.user.profile}, (err, foundEvents) => {
         if (err) console.log('Error in events#index:', err)
 
         if (!foundEvents) return res.json({
@@ -13,7 +15,7 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-    db.Event.findById(req.params.id, (err, foundEvent) => {
+    Event.findById(req.params.id, (err, foundEvent) => {
         if (err) {
             console.log('Error in events#show:', err);
 
@@ -32,7 +34,7 @@ const show = (req, res) => {
 
 const create = (req, res) => {
     console.log('creating', req.body);
-    db.Event.create(req.body, (err, savedEvent) => {
+    Event.create(req.body, (err, savedEvent) => {
         if (err) console.log('Error in event#create:', err)
 
         // Validations and error handling here
@@ -42,7 +44,7 @@ const create = (req, res) => {
 }
 
 const update = (req, res) => {
-    db.Event.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedEvent) => {
+    Event.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedEvent) => {
         if (err) {
             console.log('Error in event#update:', err)
 
@@ -56,7 +58,7 @@ const update = (req, res) => {
 };
 
 const destroy = (req, res) => {
-    db.Event.findByIdAndDelete(req.params.id, (err, deletedEvents) => {
+    Event.findByIdAndDelete(req.params.id, (err, deletedEvents) => {
         if (err) {
             console.log('Error in events#destroy:', err)
 
@@ -71,10 +73,6 @@ const destroy = (req, res) => {
     });
 };
 
-module.exports = {
-    index,
-    show,
-    create,
-    update,
-    destroy
+export {
+index, show, create, update, destroy
 };

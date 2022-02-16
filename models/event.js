@@ -1,5 +1,5 @@
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 
@@ -22,8 +22,9 @@ const eventSchema = new Schema({
     location: String,
     budgetItems: [budgetItemSchema],
     attendeeList: [attendeeSchema],
+    owner: { type: mongoose.Schema.Types.ObjectId, ref:"Profile"}
 });
 
 const Event = mongoose.model('Event', eventSchema);
 
-module.exports = Event;
+export {Event}
