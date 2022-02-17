@@ -78,21 +78,16 @@ const destroy = (req, res) => {
 };
 
 const createAttendee = async (req, res) => {
-	console.log('creating', req.body, req.params.id);
-	try {
-		console.log('here');
-		const event = await Event.findById(req.params.id);
-		console.log('event', event, 'attendeeList', attendeeList);
-		event.attendeeList.push(req.body);
-		console.log('attendeeList', event.attendeeList);
-		await event.save();
-		const newAttendee = event.attendeeList[event.attendeeList.length - 1];
-		console.log(newAttendee);
-		return res.status(201).json(newAttendee);
-	} catch (error) {
-		res.status(500).json(error);
-	}
-};
+    try {
+        const event = await Event.findById(req.params.id)
+        event.attendeeList.push(req.body)
+        await event.save()
+        const newAttendee = event.attendeeList[event.attendeeList.length - 1]
+        return res.status(201).json(newAttendee)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 
 // function createAttendee(req, res) {
 // 	Event.findById(req.params.id, function (err, event) {
@@ -121,8 +116,9 @@ const updateAttendeeStatus = async (req, res) => {
 			attendee._id.equals(req.params.attendeeId)
 		);
 		updatedEvent.attendeeList[idx].status = req.body.status;
-		await updatedEvent.save();
-		return res.status(200).json(updatedProject.attendeeList[idx]);
+        await updatedEvent.save();
+        // console.log(updatedEvent);
+		return res.status(200).json(updatedEvent.attendeeList[idx]);
 	} catch (error) {
 		res.status(500).json(error);
 	}
