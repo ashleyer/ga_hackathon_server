@@ -15,6 +15,9 @@ router.post('/:id/attendees', checkAuth, eventsCtrl.createAttendee)
 router.delete('/:id/attendees/:attendeeId', checkAuth, eventsCtrl.deleteAttendee)
 router.patch('/:id/attendees/:attendeeId', checkAuth, eventsCtrl.updateAttendeeStatus)
 
+router.post('/:id/budget', checkAuth, eventsCtrl.addBudgetItem)
+router.delete('/:id/budget/:budgetItemId', checkAuth, eventsCtrl.deleteBudgetItem)
+
 export { router }
 
 
