@@ -89,15 +89,6 @@ const createAttendee = async (req, res) => {
     }
 }
 
-// function createAttendee(req, res) {
-// 	Event.findById(req.params.id, function (err, event) {
-// 		event.attendeeList.push(req.body);
-// 		event.save(function (err) {
-// 			res.status(201).json(event.attendeeList[event.attendeeList.length - 1]);
-// 		});
-// 	});
-// }
-
 const deleteAttendee = async (req, res) => {
 	try {
 		const event = await Event.findById(req.params.id);
